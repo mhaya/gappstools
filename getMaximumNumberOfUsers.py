@@ -8,10 +8,13 @@ from oauth2client.client import flow_from_clientsecrets
 from oauth2client import tools
 from oauth2client.file import Storage
 from oauth2client.tools import run_flow
+import gdata.apps.adminsettings.service
+import gdata.gauth
+
 
 logging.basicConfig()
 
-domain = 'ex.sheepcloud.org'
+domain_name = "ex.sheepcloud.org"
 token_file_name = 'secret/token.dat'
 parser = argparse.ArgumentParser(parents=[tools.argparser])
 flags = parser.parse_args()
@@ -25,6 +28,6 @@ if credentials is None or credentials.invalid:
 http = httplib2.Http()
 http = credentials.authorize(http)
 
-resp, content = http.request("https://apps-apis.google.com/a/feeds/domain/2.0/"+domain+"/general/maximumNumberOfUsers")
+resp, content = http.request("https://apps-apis.google.com/a/feeds/domain/2.0/"+domain_name+"/general/maximumNumberOfUsers")
 print resp
 print content
