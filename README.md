@@ -4,7 +4,8 @@
 
 1. [API Client Library for Python](https://developers.google.com/api-client-library/python/start/installation?hl=ja)をインストールする。
 2. [Google Developers Console](console.developers.google.com)
-の認証情報でネイティブ アプリケーションのクライアントIDを作成し、JSONファイルをダウンロードする。
+の認証情報でネイティブ アプリケーションのクライアントIDを作成する。
+3. JSONファイルをダウンロードする。
 
 
 ## getNumberOfUsersInDomain.py
