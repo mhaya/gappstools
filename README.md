@@ -2,7 +2,13 @@
 
 ##準備
 
-1. [API Client Library for Python](https://developers.google.com/api-client-library/python/start/installation?hl=ja)をインストールする。
+1. httplib2, [API Client Library for Python](https://developers.google.com/api-client-library/python/start/installation?hl=ja)をインストールする。
+
+```
+pip install httplib2
+pip install --upgrade google-api-python-client
+```
+
 2. [Google Developers Console](console.developers.google.com)
 の認証情報でネイティブ アプリケーションのクライアントIDを作成する。
 3. JSONファイルをダウンロードする。
