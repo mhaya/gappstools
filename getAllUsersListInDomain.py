@@ -4,23 +4,28 @@
 import httplib2
 import logging
 import argparse
-import json,csv,sys
+import json
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client import tools
 from oauth2client.file import Storage
 from oauth2client.tools import run_flow
 from xml.etree import ElementTree
 
+# main function
 def main():
     logging.basicConfig()
     SECRET_PATH = 'secret/'
     ## Client Secrets JSON File path
     CLIENT_SECRETS = SECRET_PATH + 'client_secrets.json'
-    SCOPE = 'https://www.googleapis.com/auth/admin.directory.user.readonly'
+    # スコープの指定．複数指定する場合は半角スペースで区切る
+    SCOPE = 'https://apps-apis.google.com/a/feeds/domain/ https://www.googleapis.com/auth/admin.directory.user.readonly'
+    # 引数処理
     parser = argparse.ArgumentParser(parents=[tools.argparser])
     parser.add_argument('domain_name', type=str, help='domain_name')
     flags = parser.parse_args()
+    # ドメイン名の取得
     domain_name = flags.domain_name
+    
     token_file_name = SECRET_PATH+domain_name+'.dat'
     # https://developers.google.com/admin-sdk/directory/v1/guides/manage-users
     BASE_URL = 'https://www.googleapis.com/admin/directory/v1/users?domain='+domain_name+'&maxResults=100'
@@ -36,16 +41,21 @@ def main():
 
     page_token = None
     url = BASE_URL
+    # ヘッダ情報の表示
+    print "id","primaryEmail","lastLoginTime","creationTime","agreedToTerms","suspended","isMailboxSetup"
     while True:
         try:
             resp, content = http.request(url)
             x = json.loads(content)
-            for x in x["users"]:
-                print x['id'],x['primaryEmail'],x['lastLoginTime'],x['creationTime'],x['agreedToTerms'],x['suspended'],x['isMailboxSetup']
+            # ユーザ情報の表示
+            for d in x["users"]:
+                print d['id'],d['primaryEmail'],d['lastLoginTime'],d['creationTime'],d['agreedToTerms'],d['suspended'],d['isMailboxSetup']
+            # 次ページトークンの取得
             page_token = x["nextPageToken"]
             if not page_token:
                 break
-            url = url +"pageToken="+page_token
+            # 次ページアクセス用URLの作成
+            url = BASE_URL +"&pageToken="+page_token
         except KeyError:
             break
 
