@@ -5,6 +5,7 @@ import httplib2
 import logging
 import argparse
 import json
+import time,sys,random
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client import tools
 from oauth2client.file import Storage
@@ -55,6 +56,8 @@ def main():
         if mail[1] == domain_name:
             resp, content = http.request(BASE_URL+dat[0]+"/undelete",method="POST")
             print resp['status'],dat[0],dat[1]
+            sys.stdout.flush()
+            time.sleep(random.randrange(1,5))
         
 if __name__ == '__main__':
     main()

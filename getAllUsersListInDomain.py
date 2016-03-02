@@ -5,6 +5,7 @@ import httplib2
 import logging
 import argparse
 import json
+import time,sys,random
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client import tools
 from oauth2client.file import Storage
@@ -18,7 +19,7 @@ def main():
     ## Client Secrets JSON File path
     CLIENT_SECRETS = SECRET_PATH + 'client_secrets.json'
     # スコープの指定．複数指定する場合は半角スペースで区切る
-    SCOPE = 'https://apps-apis.google.com/a/feeds/domain/ https://www.googleapis.com/auth/admin.directory.user.readonly'
+    SCOPE = 'https://apps-apis.google.com/a/feeds/domain/ https://www.googleapis.com/auth/admin.directory.user.readonly https://www.googleapis.com/auth/admin.directory.user'
     # 引数処理
     parser = argparse.ArgumentParser(parents=[tools.argparser])
     parser.add_argument('domain_name', type=str, help='domain_name')
@@ -50,6 +51,7 @@ def main():
             # ユーザ情報の表示
             for d in x["users"]:
                 print d['id'],d['primaryEmail'],d['lastLoginTime'],d['creationTime'],d['agreedToTerms'],d['suspended'],d['isMailboxSetup']
+                sys.stdout.flush()
             # 次ページトークンの取得
             page_token = x["nextPageToken"]
             if not page_token:

@@ -5,6 +5,7 @@ import httplib2
 import logging
 import argparse
 import json
+import time, sys,random
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client import tools
 from oauth2client.file import Storage
@@ -19,6 +20,7 @@ def main():
     CLIENT_SECRETS = SECRET_PATH + 'client_secrets.json'
     # スコープの指定．複数指定する場合は半角スペースで区切る
     SCOPE = 'https://apps-apis.google.com/a/feeds/domain/ https://www.googleapis.com/auth/admin.directory.user.readonly https://www.googleapis.com/auth/admin.directory.user'
+
     # 引数処理
     parser = argparse.ArgumentParser(parents=[tools.argparser])
     parser.add_argument('domain_name', type=str, help='domain_name')
@@ -47,6 +49,8 @@ def main():
         if len(line)==0:
             break
         dat = line.strip().split(' ')
+        if len(dat) < 1:
+            break;
         # ヘッダーは無視する
         if dat[0] == "id":
             continue
@@ -55,6 +59,9 @@ def main():
         if mail[1] == domain_name:
             resp, content = http.request(BASE_URL+dat[0],method="DELETE")
             print resp['status'],dat[0],dat[1]
+            sys.stdout.flush()
+            # ランダムスリープ
+            time.sleep(random.randrange(1,5))
         
 if __name__ == '__main__':
     main()

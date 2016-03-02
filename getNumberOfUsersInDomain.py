@@ -14,8 +14,7 @@ def main():
     logging.basicConfig()
     SECRET_PATH = 'secret/'
     CLIENT_SECRETS = SECRET_PATH + 'client_secrets.json'
-    SCOPE = 'https://apps-apis.google.com/a/feeds/domain/ https://www.googleapis.com/auth/admin.directory.user.readonly'
-    
+    SCOPE = 'https://apps-apis.google.com/a/feeds/domain/ https://www.googleapis.com/auth/admin.directory.user.readonly https://www.googleapis.com/auth/admin.directory.user' 
     parser = argparse.ArgumentParser(parents=[tools.argparser])
     parser.add_argument('domain_name', type=str, help='domain_name')
     flags = parser.parse_args()

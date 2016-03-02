@@ -44,6 +44,8 @@ current:2
 
 ##getAllUsersListInDomain.py
 
+ドメイン内の全てのユーザリストを取得する．
+
 ###実行例
 
 ```
@@ -51,4 +53,29 @@ $ python getAllUsersListInDomain.py ex.sheepcloud.org
 id primaryEmail lastLoginTime creationTime agreedToTerms suspended isMailboxSetup
 xxxxx xxxx@ex.sheepcloud.org 2016-03-01T02:06:45.000Z 2011-10-13T04:59:40.000Z True False True
 xxxxx yyyy@ex.sheepcloud.org 2015-08-20T07:57:54.000Z 2013-03-19T01:50:48.000Z True False True
+```
+
+##deleteUsersInDomain.py
+
+指定リストにあるユーザを削除する．
+
+###実行例
+
+```
+$ python deleteUsersInDomain.py ex.sheepcloud.org list
+status id primaryEmail
+204 102860892373555356550 test@ex.sheepcloud.org
+```
+
+
+##undeleteUsersInDomain.py
+
+指定リストにあるユーザの復活を試みる．
+
+###実行例
+
+```
+$ python undeleteUsersInDomain.py ex.sheepcloud.org list
+status id primaryEmail
+204 102860892373555356550 test@ex.sheepcloud.org
 ```
